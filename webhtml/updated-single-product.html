@@ -1,0 +1,2255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Details & Editor - Premium E-Commerce</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #1a1a2e;
+      --secondary: #16213e;
+      --accent: #0f3460;
+      --gold: #daa520;
+      --success: #27ae60;
+      --error: #e74c3c;
+      --warning: #f39c12;
+      --bg: #f8f9fa;
+      --card: #ffffff;
+      --border: #e8ecf0;
+      --text-primary: #1a1a2e;
+      --text-secondary: #6c757d;
+      --text-muted: #adb5bd;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+      --shadow-xl: 0 16px 48px rgba(0,0,0,0.16);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Work Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header Bar */
+    .top-bar {
+      background: var(--primary);
+      color: white;
+      padding: 12px 0;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    /* Navigation */
+    .nav {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .breadcrumb {
+      padding: 24px 0;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .breadcrumb a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--primary);
+    }
+
+    .breadcrumb span {
+      margin: 0 8px;
+    }
+
+    /* Configuration Panel */
+    .config-panel {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      border-radius: 16px;
+      padding: 32px;
+      margin: 32px 0;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .config-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .config-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .config-title h2 {
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+
+    .config-subtitle {
+      font-size: 14px;
+      opacity: 0.85;
+    }
+
+    .config-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 16px;
+      align-items: end;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-label {
+      font-size: 13px;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+
+    .form-input {
+      padding: 14px 16px;
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      font-size: 14px;
+      font-family: inherit;
+      transition: all 0.3s;
+      backdrop-filter: blur(10px);
+    }
+
+    .form-input::placeholder {
+      color: rgba(255,255,255,0.5);
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.15);
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: white;
+      color: var(--primary);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.15);
+      color: white;
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: rgba(255,255,255,0.25);
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-success:hover:not(:disabled) {
+      background: #229954;
+      transform: translateY(-2px);
+    }
+
+    .btn-danger {
+      background: var(--error);
+      color: white;
+    }
+
+    .btn-danger:hover:not(:disabled) {
+      background: #c0392b;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-sm {
+      padding: 8px 16px;
+      font-size: 13px;
+    }
+
+    /* Product Grid */
+    .product-section {
+      background: white;
+      border-radius: 20px;
+      padding: 48px;
+      margin: 32px 0;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      margin-bottom: 48px;
+    }
+
+    /* Edit Mode Banner */
+    .edit-mode-banner {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border: 2px solid #f59e0b;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .edit-mode-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .edit-mode-icon {
+      width: 40px;
+      height: 40px;
+      background: white;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .edit-mode-text h3 {
+      font-size: 16px;
+      color: #78350f;
+      margin-bottom: 2px;
+    }
+
+    .edit-mode-text p {
+      font-size: 13px;
+      color: #92400e;
+    }
+
+    .edit-mode-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    /* Gallery */
+    .gallery {
+      position: sticky;
+      top: 120px;
+      height: fit-content;
+    }
+
+    .gallery-main {
+      background: var(--bg);
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .gallery-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 24px;
+    }
+
+    .no-image {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--text-muted);
+    }
+
+    .no-image-icon {
+      font-size: 64px;
+      margin-bottom: 16px;
+      opacity: 0.3;
+    }
+
+    .gallery-thumbs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .gallery-thumb {
+      aspect-ratio: 1;
+      border-radius: 12px;
+      border: 2px solid transparent;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--bg);
+      transition: all 0.3s;
+    }
+
+    .gallery-thumb:hover {
+      border-color: var(--accent);
+      transform: scale(1.05);
+    }
+
+    .gallery-thumb.active {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(26, 26, 46, 0.1);
+    }
+
+    .gallery-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Product Info */
+    .product-info {
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .category-tags {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .category-tag {
+      padding: 6px 14px;
+      background: var(--bg);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .product-title {
+      font-size: 36px;
+      margin-bottom: 16px;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .price-section {
+      padding: 24px 0;
+      border-top: 2px solid var(--border);
+      border-bottom: 2px solid var(--border);
+      margin: 24px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .price-main {
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--primary);
+      font-family: 'Playfair Display', serif;
+    }
+
+    .stock-badge {
+      padding: 10px 20px;
+      border-radius: 24px;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stock-badge.in-stock {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .stock-badge.low-stock {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .stock-badge.out-of-stock {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .description {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin: 24px 0;
+    }
+
+    /* Quick Specs Grid */
+    .quick-specs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 32px 0;
+      padding: 24px;
+      background: var(--bg);
+      border-radius: 12px;
+    }
+
+    .spec-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      font-size: 14px;
+    }
+
+    .spec-label {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .spec-value {
+      color: var(--text-primary);
+      font-weight: 600;
+      text-align: right;
+    }
+
+    /* Highlights */
+    .highlights {
+      margin: 32px 0;
+    }
+
+    .highlights h3 {
+      font-size: 20px;
+      margin-bottom: 16px;
+      color: var(--primary);
+    }
+
+    .highlights ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .highlights li {
+      padding-left: 32px;
+      position: relative;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .highlights li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--success);
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    /* Purchase Card */
+    .purchase-card {
+      position: sticky;
+      top: 120px;
+      background: var(--primary);
+      color: white;
+      padding: 32px;
+      border-radius: 16px;
+      margin-top: 32px;
+    }
+
+    .stock-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .stock-label {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    .stock-quantity {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .btn-add-cart {
+      width: 100%;
+      padding: 18px;
+      background: white;
+      color: var(--primary);
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn-add-cart:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .btn-add-cart:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Tabs Navigation */
+    .tabs-nav {
+      display: flex;
+      gap: 8px;
+      border-bottom: 2px solid var(--border);
+      margin: 48px 0 32px;
+    }
+
+    .tab-btn {
+      padding: 16px 32px;
+      background: none;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .tab-btn:hover {
+      color: var(--primary);
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+    }
+
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--primary);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Specifications Table */
+    .spec-section {
+      margin-bottom: 40px;
+    }
+
+    .spec-section h3 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: var(--primary);
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--gold);
+      display: inline-block;
+    }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .spec-table tr {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .spec-table tr:last-child {
+      border-bottom: none;
+    }
+
+    .spec-table tr:nth-child(even) {
+      background: var(--bg);
+    }
+
+    .spec-table td {
+      padding: 16px 24px;
+      font-size: 14px;
+    }
+
+    .spec-table td:first-child {
+      font-weight: 600;
+      color: var(--text-secondary);
+      width: 35%;
+    }
+
+    .spec-table td:last-child {
+      color: var(--text-primary);
+    }
+
+    /* Editable Spec Table */
+    .spec-table.editable td:last-child {
+      padding: 8px 16px;
+    }
+
+    .spec-table.editable input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .spec-table.editable input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(26, 26, 46, 0.1);
+    }
+
+    .spec-table-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    /* Feature Cards */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .feature-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .feature-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+    }
+
+    .feature-card.editable {
+      border: 2px dashed var(--primary);
+    }
+
+    .feature-card-actions {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--primary);
+      color: white;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+
+    .feature-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+
+    .feature-text {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .feature-card.editable input,
+    .feature-card.editable textarea {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+      margin-top: 8px;
+    }
+
+    .feature-card.editable textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    /* Array/JSON Editors */
+    .kv-editor {
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 16px;
+    }
+
+    .kv-editor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .kv-editor-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .kv-row {
+      display: grid;
+      grid-template-columns: 200px 1fr auto;
+      gap: 12px;
+      margin-bottom: 12px;
+      align-items: start;
+    }
+
+    .kv-row input,
+    .kv-row textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      background: white;
+    }
+
+    .kv-row textarea {
+      min-height: 60px;
+      resize: vertical;
+    }
+
+    .kv-row input:focus,
+    .kv-row textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(26, 26, 46, 0.1);
+    }
+
+    .kv-key {
+      font-weight: 600;
+      color: var(--text-secondary);
+      font-family: monospace;
+    }
+
+    /* Array Editor */
+    .array-editor {
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 16px;
+    }
+
+    .array-item {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      align-items: center;
+    }
+
+    .array-item input,
+    .array-item textarea {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      background: white;
+    }
+
+    .array-item textarea {
+      min-height: 60px;
+      resize: vertical;
+    }
+
+    /* Loading State */
+    .loading-container {
+      text-align: center;
+      padding: 120px 20px;
+    }
+
+    .spinner {
+      width: 56px;
+      height: 56px;
+      border: 4px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 24px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      font-size: 18px;
+      color: var(--text-secondary);
+    }
+
+    /* Error State */
+    .error-container {
+      background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+      border: 2px solid #f87171;
+      border-radius: 16px;
+      padding: 48px;
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    .error-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+    }
+
+    .error-title {
+      font-size: 24px;
+      color: #991b1b;
+      margin-bottom: 12px;
+    }
+
+    .error-message {
+      color: #7f1d1d;
+      font-size: 16px;
+      margin-bottom: 24px;
+    }
+
+    /* Toast Notifications */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: white;
+      border-radius: 12px;
+      padding: 16px 20px;
+      box-shadow: var(--shadow-xl);
+      border-left: 4px solid var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 320px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast.success {
+      border-left-color: var(--success);
+    }
+
+    .toast.error {
+      border-left-color: var(--error);
+    }
+
+    .toast.warning {
+      border-left-color: var(--warning);
+    }
+
+    .toast-icon {
+      font-size: 24px;
+    }
+
+    .toast-content {
+      flex: 1;
+    }
+
+    .toast-title {
+      font-weight: 600;
+      margin-bottom: 2px;
+      font-size: 14px;
+    }
+
+    .toast-message {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Sticky Actions Bar */
+    .sticky-actions {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-top: 2px solid var(--border);
+      padding: 20px;
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+      z-index: 99;
+      transform: translateY(100%);
+      transition: transform 0.3s;
+    }
+
+    .sticky-actions.visible {
+      transform: translateY(0);
+    }
+
+    .sticky-actions-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .changes-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .changes-badge {
+      background: var(--warning);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    /* Form Inputs */
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: all 0.2s;
+      background: white;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(26, 26, 46, 0.1);
+    }
+
+    input:disabled,
+    textarea:disabled,
+    select:disabled {
+      background: var(--bg);
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    /* Field Groups */
+    .field-group {
+      margin-bottom: 20px;
+    }
+
+    .field-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .field-value {
+      font-size: 15px;
+      color: var(--text-primary);
+      padding: 10px 0;
+      line-height: 1.6;
+    }
+
+    /* Edit Button */
+    .edit-toggle-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 60px;
+      height: 60px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: var(--shadow-xl);
+      transition: all 0.3s;
+      z-index: 98;
+    }
+
+    .edit-toggle-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .edit-toggle-btn.active {
+      background: var(--warning);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .product-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .gallery {
+        position: static;
+      }
+
+      .purchase-card {
+        position: static;
+      }
+
+      .config-form {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-specs {
+        grid-template-columns: 1fr;
+      }
+
+      .product-title {
+        font-size: 28px;
+      }
+
+      .price-main {
+        font-size: 32px;
+      }
+
+      .kv-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .product-section {
+        padding: 24px;
+      }
+
+      .tabs-nav {
+        overflow-x: auto;
+        scrollbar-width: thin;
+      }
+
+      .tab-btn {
+        white-space: nowrap;
+        padding: 12px 20px;
+        font-size: 14px;
+      }
+
+      .spec-table td {
+        padding: 12px 16px;
+        font-size: 13px;
+      }
+
+      .spec-table td:first-child {
+        width: 40%;
+      }
+    }
+
+    /* Utility Classes */
+    .hidden {
+      display: none;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .mt-4 {
+      margin-top: 32px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    🎉 Free Shipping on Orders Above ₹5,000 | 30-Day Returns
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container">
+      <div class="nav-content">
+        <a href="#" class="logo">TechElite</a>
+        <div style="display: flex; gap: 32px; align-items: center;">
+          <span style="font-size: 14px; color: var(--text-secondary);">🛒 Cart (0)</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="#">Home</a>
+      <span>/</span>
+      <a href="#" id="breadcrumbCategory">Products</a>
+      <span>/</span>
+      <span id="breadcrumbProduct">Product Details</span>
+    </div>
+
+    <!-- Configuration Panel -->
+    <div class="config-panel">
+      <div class="config-header">
+        <div class="config-icon">⚙️</div>
+        <div class="config-title">
+          <h2>Product Configuration</h2>
+          <div class="config-subtitle">Enter your business and product IDs to load details</div>
+        </div>
+      </div>
+      <div class="config-form">
+        <div class="form-group">
+          <label class="form-label">Business ID *</label>
+          <input 
+            type="text" 
+            id="businessId" 
+            class="form-input"
+            placeholder="e.g., da81a423-2230-4586-b47b-07268479cb24"
+            value="da81a423-2230-4586-b47b-07268479cb24"
+          />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Product ID *</label>
+          <input 
+            type="text" 
+            id="productId" 
+            class="form-input"
+            placeholder="e.g., 3f0c811b-8132-47c8-9446-e87516de1498"
+            value="3f0c811b-8132-47c8-9446-e87516de1498"
+          />
+        </div>
+        <button class="btn btn-primary" id="loadBtn" onclick="handleLoadProduct()">
+          <span id="loadBtnText">Load Product</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="app"></div>
+  </div>
+
+  <!-- Edit Toggle Button -->
+  <button class="edit-toggle-btn" id="editToggleBtn" onclick="toggleEditMode()" style="display: none;">
+    <span id="editToggleIcon">✏️</span>
+  </button>
+
+  <!-- Sticky Actions Bar -->
+  <div class="sticky-actions" id="stickyActions">
+    <div class="sticky-actions-content">
+      <div class="changes-info">
+        <span id="changesInfo">No changes detected</span>
+      </div>
+      <div style="display: flex; gap: 12px;">
+        <button class="btn btn-secondary" onclick="handleCancelEdit()">
+          Cancel
+        </button>
+        <button class="btn btn-success" id="saveBtn" onclick="handleSaveChanges()">
+          💾 Save All Changes
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer"></div>
+
+  <script>
+    // ============================================================================
+    // CONFIGURATION
+    // ============================================================================
+    const API_BASE_URL = 'http://localhost:9100/seller';
+    const MAX_RETRIES = 2;
+    const RETRY_DELAY = 1000;
+
+    // ============================================================================
+    // STATE MANAGEMENT
+    // ============================================================================
+    const state = {
+      businessId: '',
+      productId: '',
+      originalProduct: null,
+      currentProduct: null,
+      editMode: false,
+      activeTab: 'specifications',
+      isLoading: false,
+      isSaving: false,
+      changes: {
+        basic: new Set(),
+        attributes: new Set()
+      }
+    };
+
+    function normalizeAttributes(attributes = {}) {
+    const normalized = {};
+
+    for (const [key, attr] of Object.entries(attributes)) {
+        normalized[key] = {
+        ...attr,
+        attributeDefinitionId:
+            attr.attributeDefinitionId ||
+            attr.definitionId ||
+            attr.attribute_id ||
+            null,
+
+        source:
+            attr.source ||
+            attr.sourceType ||
+            attr.source_type ||
+            null
+        };
+    }
+
+    return normalized;
+    }
+  
+    // ============================================================================
+    // DOM ELEMENTS
+    // ============================================================================
+    const elements = {
+      app: document.getElementById('app'),
+      businessId: document.getElementById('businessId'),
+      productId: document.getElementById('productId'),
+      loadBtn: document.getElementById('loadBtn'),
+      loadBtnText: document.getElementById('loadBtnText'),
+      saveBtn: document.getElementById('saveBtn'),
+      stickyActions: document.getElementById('stickyActions'),
+      changesInfo: document.getElementById('changesInfo'),
+      breadcrumbCategory: document.getElementById('breadcrumbCategory'),
+      breadcrumbProduct: document.getElementById('breadcrumbProduct'),
+      toastContainer: document.getElementById('toastContainer'),
+      editToggleBtn: document.getElementById('editToggleBtn'),
+      editToggleIcon: document.getElementById('editToggleIcon')
+    };
+
+    // ============================================================================
+    // UTILITY FUNCTIONS
+    // ============================================================================
+    
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = String(text);
+      return div.innerHTML;
+    }
+
+    function validateUUID(uuid) {
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      return uuidRegex.test(uuid);
+    }
+
+    function formatCurrency(amount, currency = 'INR') {
+      const num = Number(amount);
+      if (isNaN(num)) return '—';
+      
+      if (currency === 'INR') {
+        return `₹${num.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+      }
+      return `${num.toLocaleString('en-US', { maximumFractionDigits: 2 })} ${currency}`;
+    }
+
+    function getStockStatus(quantity) {
+      if (quantity === 0) return { class: 'out-of-stock', text: 'Out of Stock' };
+      if (quantity <= 5) return { class: 'low-stock', text: 'Low Stock' };
+      return { class: 'in-stock', text: 'In Stock' };
+    }
+
+    function deepClone(obj) {
+      return JSON.parse(JSON.stringify(obj));
+    }
+
+    function deepEqual(obj1, obj2) {
+      return JSON.stringify(obj1) === JSON.stringify(obj2);
+    }
+
+    // ============================================================================
+    // TOAST NOTIFICATIONS
+    // ============================================================================
+    
+    function showToast(type, title, message) {
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      
+      const icons = {
+        success: '✓',
+        error: '✕',
+        warning: '⚠'
+      };
+
+      toast.innerHTML = `
+        <div class="toast-icon">${icons[type]}</div>
+        <div class="toast-content">
+          <div class="toast-title">${escapeHtml(title)}</div>
+          ${message ? `<div class="toast-message">${escapeHtml(message)}</div>` : ''}
+        </div>
+      `;
+
+      elements.toastContainer.appendChild(toast);
+      setTimeout(() => toast.classList.add('show'), 10);
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+      }, 5000);
+    }
+
+    // ============================================================================
+    // API FUNCTIONS
+    // ============================================================================
+    
+    async function fetchWithRetry(url, options = {}, retries = MAX_RETRIES) {
+      try {
+        const response = await fetch(url, {
+          ...options,
+          headers: {
+            'Content-Type': 'application/json',
+            ...options.headers
+          }
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(errorData.message || `HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        
+        if (!data.success) {
+          throw new Error(data.message || 'API request failed');
+        }
+
+        return data;
+      } catch (error) {
+        if (retries > 0 && (error.message.includes('Failed to fetch') || error.message.includes('NetworkError'))) {
+          await new Promise(resolve => setTimeout(resolve, RETRY_DELAY));
+          return fetchWithRetry(url, options, retries - 1);
+        }
+        throw error;
+      }
+    }
+
+    async function fetchProduct(businessId, productId) {
+      const url = `${API_BASE_URL}/business/${encodeURIComponent(businessId)}/products/${encodeURIComponent(productId)}`;
+      return fetchWithRetry(url);
+    }
+
+    async function updateBasicFields(businessId, productId, payload) {
+      const url = `${API_BASE_URL}/business/${encodeURIComponent(businessId)}/items/${encodeURIComponent(productId)}`;
+      return fetchWithRetry(url, {
+        method: 'PATCH',
+        body: JSON.stringify(payload)
+      });
+    }
+
+    async function updateAttributes(businessId, productId, payload) {
+      const url = `${API_BASE_URL}/business/${encodeURIComponent(businessId)}/items/${encodeURIComponent(productId)}/attributes`;
+      return fetchWithRetry(url, {
+        method: 'POST',
+        body: JSON.stringify(payload)
+      });
+    }
+
+    // ============================================================================
+    // CHANGE TRACKING
+    // ============================================================================
+    
+    function trackChange(type, key) {
+      state.changes[type].add(key);
+      updateChangesDisplay();
+    }
+
+    function updateChangesDisplay() {
+      const totalChanges = state.changes.basic.size + state.changes.attributes.size;
+      
+      if (totalChanges === 0) {
+        elements.changesInfo.innerHTML = 'No changes detected';
+        elements.stickyActions.classList.remove('visible');
+        elements.saveBtn.disabled = true;
+      } else {
+        elements.changesInfo.innerHTML = `
+          <span class="changes-badge">${totalChanges}</span>
+          <span>${totalChanges} field${totalChanges > 1 ? 's' : ''} modified</span>
+        `;
+        elements.stickyActions.classList.add('visible');
+        elements.saveBtn.disabled = false;
+      }
+    }
+
+    // ============================================================================
+    // RENDER FUNCTIONS
+    // ============================================================================
+    
+    function renderLoading() {
+      elements.app.innerHTML = `
+        <div class="product-section">
+          <div class="loading-container">
+            <div class="spinner"></div>
+            <div class="loading-text">Loading premium product details...</div>
+          </div>
+        </div>
+      `;
+      elements.editToggleBtn.style.display = 'none';
+    }
+
+    function renderError(message, details = '') {
+      elements.app.innerHTML = `
+        <div class="product-section">
+          <div class="error-container">
+            <div class="error-icon">⚠️</div>
+            <div class="error-title">Failed to Load Product</div>
+            <div class="error-message">${escapeHtml(message)}</div>
+            ${details ? `<div class="error-message" style="font-size: 14px;">${escapeHtml(details)}</div>` : ''}
+            <button class="btn btn-primary" onclick="handleLoadProduct()">
+              Try Again
+            </button>
+          </div>
+        </div>
+      `;
+      elements.editToggleBtn.style.display = 'none';
+    }
+
+    function renderProduct() {
+      if (!state.currentProduct) return;
+
+      const product = state.currentProduct;
+      
+      // Extract data
+      const media = Array.isArray(product.media) ? product.media : [];
+      const inventory = product.inventories?.[0] || { quantityAvailable: 0, quantityReserved: 0 };
+      const price = product.prices?.[0] || { amount: '0', currency: 'INR' };
+      const categories = product.Categories || [];
+      const attributes = product.attributes || {};
+      const metadata = product.metadata || {};
+
+      const stockQuantity = Number(inventory.quantityAvailable) || 0;
+      const stockStatus = getStockStatus(stockQuantity);
+
+      // Update breadcrumb
+      if (categories.length > 0) {
+        elements.breadcrumbCategory.textContent = categories[0].name;
+      }
+      elements.breadcrumbProduct.textContent = product.title;
+
+      // Main gallery HTML
+      const galleryHtml = media.length > 0 ? `
+        <div class="gallery-main" id="galleryMain">
+          <img src="${escapeHtml(media[0].url)}" alt="${escapeHtml(product.title)}" />
+        </div>
+        ${media.length > 1 ? `
+          <div class="gallery-thumbs">
+            ${media.map((m, i) => `
+              <div class="gallery-thumb ${i === 0 ? 'active' : ''}" onclick="changeImage('${escapeHtml(m.url)}', this)">
+                <img src="${escapeHtml(m.url)}" alt="View ${i + 1}" />
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
+      ` : `
+        <div class="gallery-main">
+          <div class="no-image">
+            <div class="no-image-icon">📦</div>
+            <div>No Image Available</div>
+          </div>
+        </div>
+      `;
+
+      // Quick specs from metadata
+      const quickSpecsHtml = Object.keys(metadata).length > 0 ? `
+        <div class="quick-specs">
+          ${Object.entries(metadata).map(([key, value]) => `
+            <div class="spec-item">
+              <span class="spec-label">${escapeHtml(key)}</span>
+              <span class="spec-value">${escapeHtml(String(value))}</span>
+            </div>
+          `).join('')}
+        </div>
+      ` : '';
+
+      // Highlights
+      const highlights = attributes.highlights?.value || [];
+      const highlightsHtml = highlights.length > 0 ? `
+        <div class="highlights">
+          <h3>Key Highlights</h3>
+          <ul>
+            ${highlights.map(h => `<li>${escapeHtml(h)}</li>`).join('')}
+          </ul>
+        </div>
+      ` : '';
+
+      // Main product HTML
+      elements.app.innerHTML = `
+        <div class="product-section">
+          ${state.editMode ? `
+            <div class="edit-mode-banner">
+              <div class="edit-mode-info">
+                <div class="edit-mode-icon">✏️</div>
+                <div class="edit-mode-text">
+                  <h3>Edit Mode Active</h3>
+                  <p>You can now modify product details and attributes</p>
+                </div>
+              </div>
+              <div class="edit-mode-actions">
+                <button class="btn btn-secondary btn-sm" onclick="toggleEditMode()">
+                  Exit Edit Mode
+                </button>
+              </div>
+            </div>
+          ` : ''}
+
+          <div class="product-grid">
+            <!-- Gallery -->
+            <div class="gallery">
+              ${galleryHtml}
+            </div>
+
+            <!-- Product Info -->
+            <div class="product-info">
+              ${categories.length > 0 ? `
+                <div class="category-tags">
+                  ${categories.map(cat => `
+                    <span class="category-tag">${escapeHtml(cat.name)}</span>
+                  `).join('')}
+                </div>
+              ` : ''}
+
+              <h1 class="product-title">${escapeHtml(product.title)}</h1>
+
+              ${attributes.brand?.value ? `
+                <div style="font-size: 14px; color: var(--text-secondary); margin-bottom: 16px;">
+                  Brand: <strong>${escapeHtml(attributes.brand.value)}</strong>
+                </div>
+              ` : ''}
+
+              <div class="price-section">
+                <div class="price-main">${formatCurrency(price.amount, price.currency)}</div>
+                <div class="stock-badge ${stockStatus.class}">${stockStatus.text}</div>
+              </div>
+
+              ${attributes.short_description?.value ? `
+                <div class="description">
+                  ${escapeHtml(attributes.short_description.value)}
+                </div>
+              ` : product.description ? `
+                <div class="description">
+                  ${escapeHtml(product.description)}
+                </div>
+              ` : ''}
+
+              ${quickSpecsHtml}
+              ${highlightsHtml}
+
+              <div class="purchase-card">
+                <div class="stock-info">
+                  <span class="stock-label">Available Stock</span>
+                  <span class="stock-quantity">${stockQuantity} units</span>
+                </div>
+                ${inventory.quantityReserved > 0 ? `
+                  <div class="stock-info">
+                    <span class="stock-label">Reserved</span>
+                    <span class="stock-quantity">${inventory.quantityReserved} units</span>
+                  </div>
+                ` : ''}
+                <button 
+                  class="btn-add-cart" 
+                  ${stockQuantity === 0 ? 'disabled' : ''}
+                  onclick="handleAddToCart()"
+                >
+                  ${stockQuantity === 0 ? 'Out of Stock' : 'Add to Cart'}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabs Section -->
+          <div class="tabs-nav">
+            <button class="tab-btn ${state.activeTab === 'specifications' ? 'active' : ''}" onclick="switchTab('specifications')">
+              Specifications
+            </button>
+            <button class="tab-btn ${state.activeTab === 'description' ? 'active' : ''}" onclick="switchTab('description')">
+              Description
+            </button>
+            ${attributes.warranty?.value ? `
+              <button class="tab-btn ${state.activeTab === 'warranty' ? 'active' : ''}" onclick="switchTab('warranty')">
+                Warranty
+              </button>
+            ` : ''}
+          </div>
+
+          <!-- Tab Contents -->
+          <div id="tab-specifications" class="tab-content ${state.activeTab === 'specifications' ? 'active' : ''}">
+            ${renderSpecifications(attributes)}
+          </div>
+
+          <div id="tab-description" class="tab-content ${state.activeTab === 'description' ? 'active' : ''}">
+            ${renderDescription(product, attributes)}
+          </div>
+
+          ${attributes.warranty?.value ? `
+            <div id="tab-warranty" class="tab-content ${state.activeTab === 'warranty' ? 'active' : ''}">
+              ${renderWarranty(attributes.warranty.value)}
+            </div>
+          ` : ''}
+        </div>
+      `;
+
+      // Show edit toggle button
+      elements.editToggleBtn.style.display = 'block';
+      if (state.editMode) {
+        elements.editToggleBtn.classList.add('active');
+        elements.editToggleIcon.textContent = '×';
+      } else {
+        elements.editToggleBtn.classList.remove('active');
+        elements.editToggleIcon.textContent = '✏️';
+      }
+    }
+
+    function renderSpecifications(attributes) {
+      let html = '';
+
+      // Processor and Memory Features
+      if (attributes['processor-and-memory-features']?.value) {
+        html += renderSpecSection('Processor & Memory', 'processor-and-memory-features', attributes['processor-and-memory-features'].value);
+      }
+
+      // Operating System
+      if (attributes['operating-system']?.value) {
+        html += renderSpecSection('Operating System', 'operating-system', attributes['operating-system'].value);
+      }
+
+      // General Specifications
+      if (attributes['general']?.value) {
+        html += renderSpecSection('General', 'general', attributes['general'].value);
+      }
+
+      // Specialization (as feature cards with array editing)
+      if (attributes.specialization?.value && Array.isArray(attributes.specialization.value)) {
+        html += renderArrayAttribute('Product Specialization', 'specialization', attributes.specialization.value);
+      }
+
+      return html || '<p style="color: var(--text-muted); padding: 40px; text-align: center;">No specifications available</p>';
+    }
+
+    function renderSpecSection(title, key, data) {
+      if (!data || typeof data !== 'object') return '';
+
+      const isEditable = state.editMode;
+
+      return `
+        <div class="spec-section" data-attr-key="${escapeHtml(key)}">
+          <h3>${escapeHtml(title)}</h3>
+          <table class="spec-table ${isEditable ? 'editable' : ''}">
+            <tbody>
+              ${Object.entries(data).map(([k, value]) => `
+                <tr>
+                  <td>${escapeHtml(k)}</td>
+                  <td>
+                    ${isEditable ? `
+                      <input 
+                        type="text" 
+                        value="${escapeHtml(String(value))}"
+                        data-json-key="${escapeHtml(k)}"
+                        onchange="handleJsonAttributeChange('${escapeHtml(key)}', '${escapeHtml(k)}', this.value)"
+                      />
+                    ` : escapeHtml(String(value))}
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+          ${isEditable ? `
+            <div class="spec-table-actions">
+              <button class="btn btn-secondary btn-sm" onclick="addJsonField('${escapeHtml(key)}')">
+                ＋ Add Field
+              </button>
+              <button class="btn btn-danger btn-sm" onclick="removeJsonField('${escapeHtml(key)}')">
+                － Remove Last Field
+              </button>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    function renderArrayAttribute(title, key, data) {
+      const isEditable = state.editMode;
+
+      return `
+        <div class="spec-section">
+          <h3>${escapeHtml(title)}</h3>
+          ${isEditable ? `
+            <div class="array-editor" data-attr-key="${escapeHtml(key)}">
+              ${data.map((item, index) => `
+                <div class="array-item">
+                  <textarea 
+                    data-array-index="${index}"
+                    onchange="handleArrayItemChange('${escapeHtml(key)}', ${index}, this.value)"
+                  >${escapeHtml(item)}</textarea>
+                  <button class="btn btn-danger btn-sm" onclick="removeArrayItem('${escapeHtml(key)}', ${index})">
+                    ✕
+                  </button>
+                </div>
+              `).join('')}
+              <button class="btn btn-secondary btn-sm" onclick="addArrayItem('${escapeHtml(key)}')">
+                ＋ Add Item
+              </button>
+            </div>
+          ` : `
+            <div class="features-grid">
+              ${data.map((spec, i) => `
+                <div class="feature-card">
+                  <div class="feature-icon">${['⚡', '🎯', '💪', '🚀'][i % 4]}</div>
+                  <div class="feature-text">${escapeHtml(spec)}</div>
+                </div>
+              `).join('')}
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    function renderDescription(product, attributes) {
+      let html = '';
+
+      // Long description
+      if (attributes.long_description?.value) {
+        html += `
+          <div class="spec-section">
+            <h3>Product Description</h3>
+            <div style="font-size: 15px; line-height: 1.8; color: var(--text-secondary);">
+              ${escapeHtml(attributes.long_description.value)}
+            </div>
+          </div>
+        `;
+      }
+
+      // Product Description Array
+      if (attributes['product-description']?.value && Array.isArray(attributes['product-description'].value)) {
+        html += renderArrayAttribute("What's Included", 'product-description', attributes['product-description'].value);
+      }
+
+      return html || '<p style="color: var(--text-muted); padding: 40px; text-align: center;">No description available</p>';
+    }
+
+    function renderWarranty(warrantyData) {
+      if (!warrantyData || typeof warrantyData !== 'object') {
+        return '<p style="color: var(--text-muted); padding: 40px; text-align: center;">No warranty information available</p>';
+      }
+
+      const isEditable = state.editMode;
+
+      return `
+        <div class="spec-section">
+          <h3>Warranty Information</h3>
+          ${isEditable ? renderSpecSection('', 'warranty', warrantyData).replace('<h3></h3>', '') : `
+            <div class="features-grid">
+              ${Object.entries(warrantyData).map(([key, value]) => `
+                <div class="feature-card">
+                  <div class="feature-icon">🛡️</div>
+                  <div class="feature-title">${escapeHtml(key)}</div>
+                  <div class="feature-text">${escapeHtml(String(value))}</div>
+                </div>
+              `).join('')}
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    // ============================================================================
+    // EVENT HANDLERS
+    // ============================================================================
+    
+    function changeImage(url, element) {
+      const mainImg = document.querySelector('#galleryMain img');
+      if (mainImg) {
+        mainImg.src = url;
+      }
+
+      document.querySelectorAll('.gallery-thumb').forEach(thumb => {
+        thumb.classList.remove('active');
+      });
+      element.classList.add('active');
+    }
+
+    function switchTab(tabName) {
+      state.activeTab = tabName;
+
+      // Update tab buttons
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+
+      // Update tab contents
+      document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
+      });
+      document.getElementById(`tab-${tabName}`).classList.add('active');
+    }
+
+    function handleAddToCart() {
+      if (!state.currentProduct) return;
+      showToast('success', 'Added to Cart', `"${state.currentProduct.title}" has been added to your cart`);
+    }
+
+    function toggleEditMode() {
+      if (state.editMode) {
+        // Exiting edit mode
+        if (state.changes.basic.size > 0 || state.changes.attributes.size > 0) {
+          if (!confirm('You have unsaved changes. Are you sure you want to exit edit mode?')) {
+            return;
+          }
+        }
+        state.editMode = false;
+        state.currentProduct = deepClone(state.originalProduct);
+        state.changes.basic.clear();
+        state.changes.attributes.clear();
+        updateChangesDisplay();
+      } else {
+        // Entering edit mode
+        state.editMode = true;
+      }
+      
+      renderProduct();
+      
+      if (state.editMode) {
+        showToast('success', 'Edit Mode Enabled', 'You can now modify product details');
+      } else {
+        showToast('success', 'Edit Mode Disabled', 'All changes have been discarded');
+      }
+    }
+
+    function handleCancelEdit() {
+      if (!confirm('Discard all changes and exit edit mode?')) {
+        return;
+      }
+      
+      state.editMode = false;
+      state.currentProduct = deepClone(state.originalProduct);
+      state.changes.basic.clear();
+      state.changes.attributes.clear();
+      renderProduct();
+      updateChangesDisplay();
+      showToast('success', 'Edit Cancelled', 'All changes have been discarded');
+    }
+
+    // ============================================================================
+    // ATTRIBUTE EDITING HANDLERS
+    // ============================================================================
+    
+    function handleJsonAttributeChange(attrKey, jsonKey, value) {
+    const attr = state.currentProduct.attributes[attrKey];
+    if (!attr) return;
+
+    if (!attr.value || typeof attr.value !== 'object') {
+        attr.value = {};
+    }
+
+    attr.value[jsonKey] = value;
+    trackChange('attributes', attrKey);
+    }
+
+    function addJsonField(attrKey) {
+      const key = prompt('Enter field name:');
+      if (!key) return;
+
+      const value = prompt('Enter field value:');
+      if (value === null) return;
+
+      if (!state.currentProduct.attributes[attrKey].value) {
+        state.currentProduct.attributes[attrKey].value = {};
+      }
+
+      state.currentProduct.attributes[attrKey].value[key] = value;
+      trackChange('attributes', attrKey);
+      renderProduct();
+      
+      // Switch to the correct tab
+      const attrObj = state.currentProduct.attributes[attrKey];
+      if (attrKey === 'warranty') {
+        switchTab('warranty');
+      } else {
+        switchTab('specifications');
+      }
+    }
+
+    function removeJsonField(attrKey) {
+      const data = state.currentProduct.attributes[attrKey]?.value;
+      if (!data || typeof data !== 'object') return;
+
+      const keys = Object.keys(data);
+      if (keys.length === 0) {
+        showToast('warning', 'No Fields', 'There are no fields to remove');
+        return;
+      }
+
+      const lastKey = keys[keys.length - 1];
+      if (!confirm(`Remove field "${lastKey}"?`)) return;
+
+      delete data[lastKey];
+      trackChange('attributes', attrKey);
+      renderProduct();
+      
+      // Switch to the correct tab
+      if (attrKey === 'warranty') {
+        switchTab('warranty');
+      } else {
+        switchTab('specifications');
+      }
+    }
+
+    function handleArrayItemChange(attrKey, index, value) {
+    const attr = state.currentProduct.attributes[attrKey];
+    if (!attr) return;
+
+    if (!Array.isArray(attr.value)) {
+        attr.value = [];
+    }
+
+    attr.value[index] = value;
+    trackChange('attributes', attrKey);
+    }
+
+    function addArrayItem(attrKey) {
+      if (!state.currentProduct.attributes[attrKey]) return;
+      
+      if (!Array.isArray(state.currentProduct.attributes[attrKey].value)) {
+        state.currentProduct.attributes[attrKey].value = [];
+      }
+      
+      state.currentProduct.attributes[attrKey].value.push('');
+      trackChange('attributes', attrKey);
+      renderProduct();
+      
+      // Switch to appropriate tab
+      if (attrKey === 'product-description') {
+        switchTab('description');
+      } else {
+        switchTab('specifications');
+      }
+    }
+
+    function removeArrayItem(attrKey, index) {
+      if (!state.currentProduct.attributes[attrKey]) return;
+      
+      const arr = state.currentProduct.attributes[attrKey].value;
+      if (!Array.isArray(arr)) return;
+      
+      if (arr.length <= 1) {
+        showToast('warning', 'Cannot Remove', 'At least one item must remain');
+        return;
+      }
+      
+      arr.splice(index, 1);
+      trackChange('attributes', attrKey);
+      renderProduct();
+      
+      // Switch to appropriate tab
+      if (attrKey === 'product-description') {
+        switchTab('description');
+      } else {
+        switchTab('specifications');
+      }
+    }
+
+    // ============================================================================
+    // SAVE CHANGES
+    // ============================================================================
+    
+    async function handleSaveChanges() {
+    if (state.changes.attributes.size === 0) {
+        alert('No attribute changes detected');
+        return;
+    }
+
+    const payload = buildAttributesPayload();
+
+    console.log('ATTRIBUTE PAYLOAD 👉', payload); // 🔥 DEBUG SAFE
+
+    await updateAttributes(
+        state.businessId,
+        state.productId,
+        payload
+    );
+
+    await handleLoadProduct();
+    }
+
+    function buildBasicPayload() {
+      const payload = {};
+      const product = state.currentProduct;
+
+      // Build item payload if basic fields changed
+      if (state.changes.basic.has('title') || state.changes.basic.has('description') || 
+          state.changes.basic.has('status') || state.changes.basic.has('visibility')) {
+        payload.item = {};
+        
+        if (state.changes.basic.has('title')) {
+          payload.item.title = product.title;
+        }
+        if (state.changes.basic.has('description')) {
+          payload.item.description = product.description || null;
+        }
+        if (state.changes.basic.has('status')) {
+          payload.item.status = product.status;
+        }
+        if (state.changes.basic.has('visibility')) {
+          payload.item.visibility = product.visibility;
+        }
+      }
+
+      if (state.changes.basic.has('price') && product.prices?.[0]) {
+        payload.price = {
+          currency: product.prices[0].currency,
+          amount: Number(product.prices[0].amount)
+        };
+      }
+
+      if (state.changes.basic.has('inventory') && product.inventories?.[0]) {
+        payload.inventory = {
+          quantityAvailable: Number(product.inventories[0].quantityAvailable)
+        };
+      }
+
+      return payload;
+    }
+
+    function buildAttributesPayload() {
+    const attributes = [];
+
+    for (const key of state.changes.attributes) {
+        const attr = state.currentProduct.attributes[key];
+        if (!attr) continue;
+
+        if (!attr.attributeDefinitionId || !attr.source) {
+        console.error('Invalid attribute skipped:', key, attr);
+        continue;
+        }
+
+        attributes.push({
+        attributeDefinitionId: attr.attributeDefinitionId,
+        sourceType: attr.source,
+        value: attr.value
+        });
+    }
+
+    return { attributes };
+    }
+
+
+    // ============================================================================
+    // LOAD PRODUCT
+    // ============================================================================
+    
+    async function handleLoadProduct() {
+  const businessId = elements.businessId.value.trim();
+  const productId = elements.productId.value.trim();
+
+  if (!businessId || !productId) return;
+
+  renderLoading();
+
+  const response = await fetchProduct(businessId, productId);
+
+  state.originalProduct = deepClone(response.data);
+  state.currentProduct = deepClone(response.data);
+
+  // ✅ CRITICAL FIX
+  state.originalProduct.attributes =
+    normalizeAttributes(state.originalProduct.attributes);
+
+  state.currentProduct.attributes =
+    normalizeAttributes(state.currentProduct.attributes);
+
+  state.changes.attributes.clear();
+  renderProduct();
+}
+
+    
+    // ============================================================================
+    // INITIALIZATION
+    // ============================================================================
+    
+    // Show initial empty state
+    elements.app.innerHTML = `
+      <div class="product-section">
+        <div class="loading-container">
+          <div style="font-size: 64px; margin-bottom: 24px; opacity: 0.2;">📦</div>
+          <div class="loading-text">Enter product details above to get started</div>
+        </div>
+      </div>
+    `;
+
+    // Add Enter key support
+    [elements.businessId, elements.productId].forEach(input => {
+      input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          handleLoadProduct();
+        }
+      });
+    });
+
+    // Warn before leaving with unsaved changes
+    window.addEventListener('beforeunload', (e) => {
+      if (state.editMode && (state.changes.basic.size > 0 || state.changes.attributes.size > 0)) {
+        e.preventDefault();
+        e.returnValue = '';
+      }
+    });
+
+    // Auto-load if IDs present
+    window.addEventListener('DOMContentLoaded', () => {
+      const businessId = elements.businessId.value.trim();
+      const productId = elements.productId.value.trim();
+      
+      if (businessId && productId) {
+        handleLoadProduct();
+      }
+    });
+  </script>
+
+</body>
+</html>

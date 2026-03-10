@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Update Item Attributes</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-dark: #4338ca;
+      --primary-light: #eef2ff;
+      --secondary: #64748b;
+      --success: #10b981;
+      --success-light: #d1fae5;
+      --error: #ef4444;
+      --error-light: #fee2e2;
+      --warning: #f59e0b;
+      --warning-light: #fef3c7;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Header Section */
+    .header {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+
+    .header p {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    /* Configuration Card */
+    .config-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+    }
+
+    .config-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .config-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 16px;
+      align-items: end;
+    }
+
+    /* Form Inputs */
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .input-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .required {
+      color: var(--error);
+    }
+
+    input, textarea, select {
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: all 0.2s;
+      background: var(--card);
+      color: var(--text-primary);
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    input:disabled, textarea:disabled, select:disabled {
+      background: var(--bg);
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: var(--primary);
+    }
+
+    textarea {
+      resize: vertical;
+      width: 700px;
+      min-height: 100px;
+      font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+      line-height: 1.5;
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 12px 24px;
+      border-radius: 10px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+      font-family: inherit;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-secondary {
+      background: var(--card);
+      color: var(--text-primary);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--bg);
+      border-color: var(--text-secondary);
+    }
+
+    .btn-danger {
+      background: var(--error);
+      color: white;
+    }
+
+    .btn-danger:hover:not(:disabled) {
+      background: #dc2626;
+      transform: translateY(-1px);
+    }
+
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 12px;
+      border-radius: 6px;
+    }
+
+    .btn-icon {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Attributes Form */
+    .attributes-container {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+      min-height: 400px;
+    }
+
+    .attributes-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .attributes-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .attributes-count {
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .attr-row {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 24px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+
+    .attr-row:hover {
+      background: rgba(79, 70, 229, 0.02);
+      margin: 0 -16px;
+      padding-left: 16px;
+      padding-right: 16px;
+      border-radius: 8px;
+    }
+
+    .attr-row:last-child {
+      border-bottom: none;
+    }
+
+    .attr-info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .attr-label {
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--text-primary);
+    }
+
+    .attr-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .attr-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .tag-key {
+      background: var(--bg);
+      color: var(--text-secondary);
+      font-family: 'SF Mono', monospace;
+    }
+
+    .tag-type {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .tag-changed {
+      background: var(--warning-light);
+      color: var(--warning);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* Array Input */
+    .array-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .array-item {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .array-item input {
+      flex: 1;
+    }
+
+    /* JSON Input */
+    .json-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .json-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+
+    .empty-state-icon {
+      font-size: 64px;
+      margin-bottom: 16px;
+      opacity: 0.3;
+    }
+
+    .empty-state-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+    }
+
+    .empty-state-text {
+      font-size: 14px;
+    }
+
+    /* Loading State */
+    .loading-state {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    /* Toast Notifications */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--card);
+      border-radius: 12px;
+      padding: 16px 20px;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 320px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .toast-content {
+      flex: 1;
+    }
+
+    .toast-title {
+      font-weight: 600;
+      margin-bottom: 2px;
+      font-size: 14px;
+    }
+
+    .toast-message {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .toast.success {
+      border-left: 4px solid var(--success);
+    }
+
+    .toast.error {
+      border-left: 4px solid var(--error);
+    }
+
+    .toast.warning {
+      border-left: 4px solid var(--warning);
+    }
+
+    /* Actions Bar */
+    .actions-bar {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px 28px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      bottom: 20px;
+      z-index: 100;
+    }
+
+    .actions-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    .changes-badge {
+      background: var(--warning-light);
+      color: var(--warning);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .actions-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .config-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .attr-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .json-row {
+        grid-template-columns: 1fr;
+      }
+
+      .actions-bar {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .actions-info {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .actions-buttons {
+        width: 100%;
+      }
+
+      .actions-buttons button {
+        flex: 1;
+      }
+    }
+
+    /* Validation Errors */
+    .input-error {
+      border-color: var(--error) !important;
+    }
+
+    .error-message {
+      color: var(--error);
+      font-size: 12px;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Info tooltip */
+    .info-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      background: var(--text-muted);
+      color: white;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: help;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>🎯 Update Item Attributes</h1>
+      <p>Manage and update product attributes dynamically based on data types</p>
+    </div>
+
+    <!-- Configuration Card -->
+    <div class="config-card">
+      <div class="config-title">
+        <span>⚙️</span>
+        <span>Configuration</span>
+      </div>
+      <div class="config-grid">
+        <div class="input-group">
+          <label class="input-label">
+            Business ID <span class="required">*</span>
+          </label>
+          <input 
+            id="businessIdInput" 
+            type="text"
+            placeholder="e.g., da81a423-2230-4586-b47b-07268479cb24"
+          />
+        </div>
+        <div class="input-group">
+          <label class="input-label">
+            Item ID <span class="required">*</span>
+          </label>
+          <input 
+            id="itemIdInput" 
+            type="text"
+            placeholder="e.g., 6c9e559f-9bd6-4e04-bb27-fe53f5aa2f24"
+          />
+        </div>
+        <button id="loadBtn" class="btn btn-primary" onclick="loadAttributes()">
+          <span id="loadBtnText">Load Attributes</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Attributes Container -->
+    <div class="attributes-container">
+      <div id="attributesForm"></div>
+    </div>
+
+    <!-- Actions Bar -->
+    <div class="actions-bar" id="actionsBar" style="display: none;">
+      <div class="actions-info">
+        <span id="changesInfo">No changes detected</span>
+      </div>
+      <div class="actions-buttons">
+        <button class="btn btn-secondary" onclick="handleReset()">
+          ↺ Reset Changes
+        </button>
+        <button class="btn btn-primary" id="saveBtn" onclick="submitAttributes()">
+          💾 Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer"></div>
+
+  <script>
+    // ============================================================================
+    // STATE MANAGEMENT
+    // ============================================================================
+    const state = {
+      businessId: '',
+      itemId: '',
+      allowedAttributes: [],
+      originalAttributes: [],
+      isLoading: false,
+      isSaving: false,
+      changedAttributes: new Set()
+    };
+
+    // ============================================================================
+    // DOM REFERENCES
+    // ============================================================================
+    const elements = {
+      businessIdInput: document.getElementById('businessIdInput'),
+      itemIdInput: document.getElementById('itemIdInput'),
+      loadBtn: document.getElementById('loadBtn'),
+      loadBtnText: document.getElementById('loadBtnText'),
+      saveBtn: document.getElementById('saveBtn'),
+      formEl: document.getElementById('attributesForm'),
+      actionsBar: document.getElementById('actionsBar'),
+      changesInfo: document.getElementById('changesInfo'),
+      toastContainer: document.getElementById('toastContainer')
+    };
+
+    // ============================================================================
+    // UTILITY FUNCTIONS
+    // ============================================================================
+    
+    function escapeHtml(text) {
+      if (text == null) return '';
+      const div = document.createElement('div');
+      div.textContent = String(text);
+      return div.innerHTML;
+    }
+
+    function validateUUID(uuid) {
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      return uuidRegex.test(uuid);
+    }
+
+    function deepEqual(obj1, obj2) {
+      return JSON.stringify(obj1) === JSON.stringify(obj2);
+    }
+
+    // ============================================================================
+    // TOAST NOTIFICATIONS
+    // ============================================================================
+    
+    function showToast(type, title, message) {
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      
+      const icons = {
+        success: '✓',
+        error: '✕',
+        warning: '⚠'
+      };
+
+      toast.innerHTML = `
+        <div class="toast-icon">${icons[type]}</div>
+        <div class="toast-content">
+          <div class="toast-title">${escapeHtml(title)}</div>
+          ${message ? `<div class="toast-message">${escapeHtml(message)}</div>` : ''}
+        </div>
+      `;
+
+      elements.toastContainer.appendChild(toast);
+
+      setTimeout(() => toast.classList.add('show'), 10);
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    }
+
+    // ============================================================================
+    // API CALLS
+    // ============================================================================
+    
+    async function fetchWithRetry(url, options = {}, retries = 2) {
+      try {
+        const response = await fetch(url, {
+          ...options,
+          headers: {
+            'Content-Type': 'application/json',
+            ...options.headers
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        
+        if (!data.success) {
+          throw new Error(data.message || 'API request failed');
+        }
+
+        return data;
+      } catch (error) {
+        if (retries > 0 && error.message.includes('Failed to fetch')) {
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          return fetchWithRetry(url, options, retries - 1);
+        }
+        throw error;
+      }
+    }
+
+    // ============================================================================
+    // LOAD ATTRIBUTES
+    // ============================================================================
+    
+    async function loadAttributes() {
+      const businessId = elements.businessIdInput.value.trim();
+      const itemId = elements.itemIdInput.value.trim();
+
+      // Validation
+      if (!businessId || !itemId) {
+        showToast('warning', 'Missing Information', 'Please provide both Business ID and Item ID');
+        return;
+      }
+
+      if (!validateUUID(businessId)) {
+        showToast('error', 'Invalid Business ID', 'Please enter a valid UUID format');
+        return;
+      }
+
+      if (!validateUUID(itemId)) {
+        showToast('error', 'Invalid Item ID', 'Please enter a valid UUID format');
+        return;
+      }
+
+      // Update state
+      state.businessId = businessId;
+      state.itemId = itemId;
+      state.isLoading = true;
+      state.changedAttributes.clear();
+
+      // Update UI
+      elements.loadBtn.disabled = true;
+      elements.loadBtnText.textContent = 'Loading...';
+      renderLoading();
+
+      try {
+        const url = `http://localhost:9100/seller/business/${encodeURIComponent(businessId)}/items/${encodeURIComponent(itemId)}/allowed/attributes`;
+        const response = await fetchWithRetry(url);
+
+        state.allowedAttributes = response.data || [];
+        state.originalAttributes = JSON.parse(JSON.stringify(state.allowedAttributes));
+
+        renderForm();
+        showToast('success', 'Attributes Loaded', `Successfully loaded ${state.allowedAttributes.length} attributes`);
+
+      } catch (error) {
+        console.error('Load error:', error);
+        renderError(error.message);
+        showToast('error', 'Load Failed', error.message);
+      } finally {
+        state.isLoading = false;
+        elements.loadBtn.disabled = false;
+        elements.loadBtnText.textContent = 'Load Attributes';
+      }
+    }
+
+    // ============================================================================
+    // RENDER FUNCTIONS
+    // ============================================================================
+    
+    function renderLoading() {
+      elements.formEl.innerHTML = `
+        <div class="loading-state">
+          <div class="spinner"></div>
+          <div class="loading-text">Loading attributes...</div>
+        </div>
+      `;
+      elements.actionsBar.style.display = 'none';
+    }
+
+    function renderError(message) {
+      elements.formEl.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">⚠️</div>
+          <div class="empty-state-title">Failed to Load Attributes</div>
+          <div class="empty-state-text">${escapeHtml(message)}</div>
+        </div>
+      `;
+      elements.actionsBar.style.display = 'none';
+    }
+
+    function renderEmpty() {
+      elements.formEl.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">📋</div>
+          <div class="empty-state-title">No Attributes Found</div>
+          <div class="empty-state-text">This item doesn't have any configurable attributes</div>
+        </div>
+      `;
+      elements.actionsBar.style.display = 'none';
+    }
+
+    function renderForm() {
+      if (!state.allowedAttributes.length) {
+        renderEmpty();
+        return;
+      }
+
+      const header = `
+        <div class="attributes-header">
+          <div class="attributes-title">📝 Attribute Editor</div>
+          <div class="attributes-count">${state.allowedAttributes.length} Attributes</div>
+        </div>
+      `;
+
+      const rows = state.allowedAttributes.map(attr => {
+        const isChanged = state.changedAttributes.has(attr.attributeDefinitionId);
+        
+        return `
+          <div class="attr-row" data-id="${attr.attributeDefinitionId}">
+            <div class="attr-info">
+              <div class="attr-label">${escapeHtml(attr.label)}</div>
+              <div class="attr-meta">
+                <span class="attr-tag tag-key">${escapeHtml(attr.key)}</span>
+                <span class="attr-tag tag-type">${escapeHtml(attr.dataType)}</span>
+                ${isChanged ? '<span class="attr-tag tag-changed">Modified</span>' : ''}
+              </div>
+            </div>
+            <div>
+              ${renderInput(attr)}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      elements.formEl.innerHTML = header + rows;
+      elements.actionsBar.style.display = 'flex';
+      updateChangesInfo();
+    }
+
+    // ============================================================================
+    // INPUT RENDERERS
+    // ============================================================================
+    
+    function renderInput(attr) {
+      const value = attr.value;
+      const attrId = attr.attributeDefinitionId;
+
+      switch (attr.dataType) {
+        case 'string':
+          return `<textarea 
+            data-type="string" 
+            data-attr-id="${attrId}"
+            onchange="handleInputChange('${attrId}')"
+            placeholder="Enter ${attr.label.toLowerCase()}..."
+          >${escapeHtml(value ?? '')}</textarea>`;
+
+        case 'number':
+          return `<input 
+            type="number" 
+            data-type="number" 
+            data-attr-id="${attrId}"
+            value="${value ?? ''}"
+            onchange="handleInputChange('${attrId}')"
+            placeholder="Enter a number..."
+          >`;
+
+        case 'boolean':
+          return `
+            <div style="display: flex; align-items: center; gap: 12px; padding: 8px 0;">
+              <input 
+                type="checkbox" 
+                data-type="boolean" 
+                data-attr-id="${attrId}"
+                ${value === true ? 'checked' : ''}
+                onchange="handleInputChange('${attrId}')"
+                id="checkbox-${attrId}"
+              >
+              <label for="checkbox-${attrId}" style="cursor: pointer; user-select: none;">
+                ${value === true ? 'Enabled' : 'Disabled'}
+              </label>
+            </div>
+          `;
+
+        case 'enum':
+          return `<select 
+            data-type="enum" 
+            data-attr-id="${attrId}"
+            onchange="handleInputChange('${attrId}')"
+          >
+            <option value="">-- Select ${attr.label} --</option>
+            ${(attr.options || []).map(option => `
+              <option value="${escapeHtml(option)}" ${value === option ? 'selected' : ''}>
+                ${escapeHtml(option)}
+              </option>
+            `).join('')}
+          </select>`;
+
+        case 'array':
+          const arrayItems = Array.isArray(value) && value.length ? value : [''];
+          return `
+            <div class="array-container" data-type="array" data-attr-id="${attrId}">
+              ${arrayItems.map((item, index) => `
+                <div class="array-item">
+                  <input 
+                    type="text" 
+                    value="${escapeHtml(item)}"
+                    onchange="handleInputChange('${attrId}')"
+                    placeholder="Enter value..."
+                  >
+                  ${arrayItems.length > 1 ? `
+                    <button class="btn btn-icon btn-secondary" onclick="removeArrayItem(this, '${attrId}')" title="Remove">
+                      ✕
+                    </button>
+                  ` : ''}
+                </div>
+              `).join('')}
+              <button class="btn btn-sm btn-secondary" onclick="addArrayItem(this, '${attrId}')">
+                ＋ Add Item
+              </button>
+            </div>
+          `;
+
+        case 'json':
+          const entries = value && typeof value === 'object' ? Object.entries(value) : [['', '']];
+          return `
+            <div class="json-container" data-type="json" data-attr-id="${attrId}">
+              ${entries.map(([k, v]) => renderJsonRow(k, v, attrId)).join('')}
+              <button class="btn btn-sm btn-secondary" onclick="addJsonRow(this, '${attrId}')">
+                ＋ Add Field
+              </button>
+            </div>
+          `;
+
+        default:
+          return `<div style="color: var(--text-muted); padding: 12px;">Unsupported type: ${escapeHtml(attr.dataType)}</div>`;
+      }
+    }
+
+    function renderJsonRow(key = '', value = '', attrId) {
+      return `
+        <div class="json-row">
+          <input 
+            type="text" 
+            placeholder="Key" 
+            value="${escapeHtml(key)}"
+            onchange="handleInputChange('${attrId}')"
+          >
+          <input 
+            type="text" 
+            placeholder="Value" 
+            value="${escapeHtml(value)}"
+            onchange="handleInputChange('${attrId}')"
+          >
+          <button class="btn btn-icon btn-secondary" onclick="removeJsonRow(this, '${attrId}')" title="Remove">
+            ✕
+          </button>
+        </div>
+      `;
+    }
+
+    // ============================================================================
+    // DYNAMIC INPUT HANDLERS
+    // ============================================================================
+    
+    function addArrayItem(button, attrId) {
+      const container = button.parentElement;
+      const newItem = document.createElement('div');
+      newItem.className = 'array-item';
+      newItem.innerHTML = `
+        <input 
+          type="text" 
+          placeholder="Enter value..."
+          onchange="handleInputChange('${attrId}')"
+        >
+        <button class="btn btn-icon btn-secondary" onclick="removeArrayItem(this, '${attrId}')" title="Remove">
+          ✕
+        </button>
+      `;
+      container.insertBefore(newItem, button);
+      handleInputChange(attrId);
+    }
+
+    function removeArrayItem(button, attrId) {
+      const container = button.closest('.array-container');
+      const items = container.querySelectorAll('.array-item');
+      
+      if (items.length > 1) {
+        button.parentElement.remove();
+        handleInputChange(attrId);
+      } else {
+        showToast('warning', 'Cannot Remove', 'At least one item must remain');
+      }
+    }
+
+    function addJsonRow(button, attrId) {
+      const container = button.parentElement;
+      const newRow = document.createElement('div');
+      newRow.innerHTML = renderJsonRow('', '', attrId);
+      container.insertBefore(newRow.firstElementChild, button);
+      handleInputChange(attrId);
+    }
+
+    function removeJsonRow(button, attrId) {
+      button.closest('.json-row').remove();
+      handleInputChange(attrId);
+    }
+
+    // ============================================================================
+    // CHANGE DETECTION
+    // ============================================================================
+    
+    function handleInputChange(attrId) {
+      const originalAttr = state.originalAttributes.find(a => a.attributeDefinitionId === attrId);
+      const currentValue = extractValue(attrId);
+      
+      if (!deepEqual(currentValue, originalAttr.value)) {
+        state.changedAttributes.add(attrId);
+      } else {
+        state.changedAttributes.delete(attrId);
+      }
+      
+      updateChangesInfo();
+      
+      // Update checkbox label
+      const checkbox = document.querySelector(`input[data-attr-id="${attrId}"][type="checkbox"]`);
+      if (checkbox) {
+        const label = checkbox.nextElementSibling;
+        if (label) {
+          label.textContent = checkbox.checked ? 'Enabled' : 'Disabled';
+        }
+      }
+    }
+
+    function extractValue(attrId) {
+      const row = document.querySelector(`.attr-row[data-id="${attrId}"]`);
+      if (!row) return null;
+
+      const element = row.querySelector('[data-type]');
+      const attr = state.allowedAttributes.find(a => a.attributeDefinitionId === attrId);
+      
+      if (!element || !attr) return null;
+
+      switch (attr.dataType) {
+        case 'string':
+          return element.value.trim() || null;
+
+        case 'number':
+          return element.value === '' ? null : Number(element.value);
+
+        case 'boolean':
+          return element.checked;
+
+        case 'enum':
+          return element.value || null;
+
+        case 'array':
+          const arrayValues = Array.from(element.querySelectorAll('input'))
+            .map(input => input.value.trim())
+            .filter(Boolean);
+          return arrayValues.length > 0 ? arrayValues : null;
+
+        case 'json':
+          const jsonObj = {};
+          element.querySelectorAll('.json-row').forEach(row => {
+            const key = row.children[0].value.trim();
+            const value = row.children[1].value.trim();
+            if (key) jsonObj[key] = value;
+          });
+          return Object.keys(jsonObj).length > 0 ? jsonObj : null;
+
+        default:
+          return null;
+      }
+    }
+
+    function updateChangesInfo() {
+      const count = state.changedAttributes.size;
+      
+      if (count === 0) {
+        elements.changesInfo.innerHTML = '✓ No changes detected';
+        elements.saveBtn.disabled = true;
+      } else {
+        elements.changesInfo.innerHTML = `
+          <span class="changes-badge">${count}</span>
+          <span>${count} attribute${count !== 1 ? 's' : ''} modified</span>
+        `;
+        elements.saveBtn.disabled = false;
+      }
+
+      // Update visual indicators
+      document.querySelectorAll('.attr-row').forEach(row => {
+        const attrId = row.dataset.id;
+        const isChanged = state.changedAttributes.has(attrId);
+        const existingTag = row.querySelector('.tag-changed');
+        
+        if (isChanged && !existingTag) {
+          const metaDiv = row.querySelector('.attr-meta');
+          const tag = document.createElement('span');
+          tag.className = 'attr-tag tag-changed';
+          tag.textContent = 'Modified';
+          metaDiv.appendChild(tag);
+        } else if (!isChanged && existingTag) {
+          existingTag.remove();
+        }
+      });
+    }
+
+    // ============================================================================
+    // SUBMIT CHANGES
+    // ============================================================================
+    
+    async function submitAttributes() {
+      if (state.changedAttributes.size === 0) {
+        showToast('warning', 'No Changes', 'Please modify at least one attribute before saving');
+        return;
+      }
+
+      const attributes = [];
+
+      for (const attrId of state.changedAttributes) {
+        const attr = state.allowedAttributes.find(a => a.attributeDefinitionId === attrId);
+        if (!attr) continue;
+
+        const value = extractValue(attrId);
+
+        attributes.push({
+          attributeDefinitionId: attr.attributeDefinitionId,
+          sourceType: attr.sourceType,
+          value: value
+        });
+      }
+
+      // Update UI
+      state.isSaving = true;
+      elements.saveBtn.disabled = true;
+      elements.saveBtn.innerHTML = `
+        <div style="width: 16px; height: 16px; border: 2px solid white; border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+        Saving...
+      `;
+
+      try {
+        const url = `http://localhost:9100/business/${encodeURIComponent(state.businessId)}/items/${encodeURIComponent(state.itemId)}/attributes`;
+        
+        await fetchWithRetry(url, {
+          method: 'POST',
+          body: JSON.stringify({ attributes })
+        });
+
+        showToast('success', 'Changes Saved', `Successfully updated ${attributes.length} attribute${attributes.length !== 1 ? 's' : ''}`);
+        
+        // Reload to get fresh data
+        await loadAttributes();
+
+      } catch (error) {
+        console.error('Save error:', error);
+        showToast('error', 'Save Failed', error.message);
+      } finally {
+        state.isSaving = false;
+        elements.saveBtn.disabled = false;
+        elements.saveBtn.innerHTML = '💾 Save Changes';
+      }
+    }
+
+    // ============================================================================
+    // RESET HANDLER
+    // ============================================================================
+    
+    function handleReset() {
+      if (state.changedAttributes.size === 0) {
+        showToast('warning', 'No Changes', 'There are no changes to reset');
+        return;
+      }
+
+      if (!confirm(`Are you sure you want to discard ${state.changedAttributes.size} change${state.changedAttributes.size !== 1 ? 's' : ''}?`)) {
+        return;
+      }
+
+      state.allowedAttributes = JSON.parse(JSON.stringify(state.originalAttributes));
+      state.changedAttributes.clear();
+      renderForm();
+      showToast('success', 'Changes Discarded', 'Form has been reset to original values');
+    }
+
+    // ============================================================================
+    // KEYBOARD SHORTCUTS
+    // ============================================================================
+    
+    document.addEventListener('keydown', (e) => {
+      // Ctrl/Cmd + S to save
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        if (!state.isSaving && state.changedAttributes.size > 0) {
+          submitAttributes();
+        }
+      }
+
+      // Ctrl/Cmd + R to reset (when focused on form)
+      if ((e.ctrlKey || e.metaKey) && e.key === 'r' && state.changedAttributes.size > 0) {
+        e.preventDefault();
+        handleReset();
+      }
+    });
+
+    // ============================================================================
+    // INITIALIZE
+    // ============================================================================
+    
+    // Show empty state initially
+    renderEmpty();
+
+    // Focus on first input
+    elements.businessIdInput.focus();
+
+    // Add Enter key support
+    [elements.businessIdInput, elements.itemIdInput].forEach(input => {
+      input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          loadAttributes();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

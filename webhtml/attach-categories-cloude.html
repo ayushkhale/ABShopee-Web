@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Attach Categories – Product Assignment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Colors */
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --primary-light: #6366f1;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --danger: #ef4444;
+            --warning: #f97316;
+            
+            /* Text */
+            --text-dark: #111827;
+            --text-medium: #374151;
+            --text-light: #6b7280;
+            --text-lighter: #9ca3af;
+            
+            /* Background */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-tertiary: #f3f4f6;
+            
+            /* Border */
+            --border: #e5e7eb;
+            --border-light: #f3f4f6;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            /* Radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* ==================== HEADER ==================== */
+        .app-header {
+            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+            padding: 2rem 1.5rem;
+            box-shadow: var(--shadow-xl);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .brand-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .brand-text h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: white;
+            margin: 0;
+            letter-spacing: -0.025em;
+        }
+
+        .brand-text p {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.875rem;
+        }
+
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .breadcrumb-separator {
+            opacity: 0.5;
+        }
+
+        /* ==================== MAIN CONTAINER ==================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-xl);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        /* ==================== FORM ELEMENTS ==================== */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-medium);
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .form-label .required {
+            color: var(--danger);
+        }
+
+        .form-input {
+            padding: 0.875rem 1.25rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            font-weight: 500;
+            background: var(--bg-secondary);
+            transition: all 0.2s;
+            color: var(--text-dark);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .form-input:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background: var(--bg-tertiary);
+        }
+
+        /* ==================== BUTTONS ==================== */
+        .btn {
+            padding: 0.875rem 1.75rem;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-weight: 700;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-medium);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: var(--border);
+        }
+
+        .btn-success {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-success:hover:not(:disabled) {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        /* ==================== CATEGORY TREE ==================== */
+        .category-tree {
+            max-height: 500px;
+            overflow-y: auto;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+            background: var(--bg-secondary);
+        }
+
+        .category-tree::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .category-tree::-webkit-scrollbar-track {
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+        }
+
+        .category-tree::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        .category-tree::-webkit-scrollbar-thumb:hover {
+            background: var(--text-lighter);
+        }
+
+        .category-node {
+            margin-bottom: 0.5rem;
+        }
+
+        .category-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .category-item:hover {
+            border-color: var(--primary-light);
+            background: var(--bg-secondary);
+            transform: translateX(4px);
+        }
+
+        .category-item.selected {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .category-item.selected:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        .category-checkbox {
+            width: 1.25rem;
+            height: 1.25rem;
+            cursor: pointer;
+            accent-color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .category-expand {
+            width: 1.25rem;
+            height: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            flex-shrink: 0;
+            font-size: 0.75rem;
+            color: var(--text-medium);
+        }
+
+        .category-expand:hover {
+            background: var(--border);
+        }
+
+        .category-expand.expanded {
+            transform: rotate(90deg);
+        }
+
+        .category-label {
+            flex: 1;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .category-count {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            background: var(--bg-tertiary);
+            border-radius: 999px;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .category-item.selected .category-count {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .category-children {
+            margin-left: 2rem;
+            margin-top: 0.5rem;
+            border-left: 2px solid var(--border-light);
+            padding-left: 1rem;
+        }
+
+        .category-children.collapsed {
+            display: none;
+        }
+
+        /* ==================== SELECTED CATEGORIES ==================== */
+        .selected-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            min-height: 3rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-lg);
+        }
+
+        .selected-categories.empty::before {
+            content: 'No categories selected yet. Select from the tree above.';
+            color: var(--text-lighter);
+            font-size: 0.875rem;
+            font-style: italic;
+        }
+
+        .category-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .category-chip:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        .chip-remove {
+            width: 1rem;
+            height: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+
+        .chip-remove:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* ==================== ACTIONS ==================== */
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border-light);
+        }
+
+        /* ==================== STATUS MESSAGES ==================== */
+        .status-message {
+            margin-top: 1rem;
+            padding: 1rem 1.25rem;
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: none;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .status-message.show {
+            display: flex;
+        }
+
+        .status-message.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 2px solid #fca5a5;
+        }
+
+        .status-message.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 2px solid #6ee7b7;
+        }
+
+        .status-message.info {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 2px solid #93c5fd;
+        }
+
+        /* ==================== LOADING STATE ==================== */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading-overlay.show {
+            display: flex;
+        }
+
+        .loading-spinner {
+            width: 4rem;
+            height: 4rem;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-lighter);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state p {
+            font-size: 0.875rem;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 768px) {
+            .app-header {
+                padding: 1.5rem 1rem;
+            }
+
+            .brand-text h1 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions {
+                flex-direction: column-reverse;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .category-children {
+                margin-left: 1rem;
+                padding-left: 0.75rem;
+            }
+        }
+
+        /* ==================== UTILITIES ==================== */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-muted {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- App Header -->
+    <header class="app-header">
+        <div class="header-content">
+            <div class="brand">
+                <div class="brand-icon">
+                    <i class="fas fa-tags"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>Attach Categories</h1>
+                    <p>Assign product categories for better organization</p>
+                </div>
+            </div>
+            <nav class="breadcrumb">
+                <span class="breadcrumb-item">
+                    <i class="fas fa-home"></i>
+                    Dashboard
+                </span>
+                <span class="breadcrumb-separator">
+                    <i class="fas fa-chevron-right"></i>
+                </span>
+                <span class="breadcrumb-item">
+                    <i class="fas fa-box"></i>
+                    Products
+                </span>
+                <span class="breadcrumb-separator">
+                    <i class="fas fa-chevron-right"></i>
+                </span>
+                <span class="breadcrumb-item">
+                    Attach Categories
+                </span>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <div class="card">
+            <!-- Context Section -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i class="fas fa-info-circle"></i>
+                        Product Information
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-building"></i>
+                            Business ID
+                            <span class="required">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="businessIdInput" 
+                            class="form-input"
+                            placeholder="Enter business ID"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-barcode"></i>
+                            Catalog Item ID
+                            <span class="required">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="itemIdInput" 
+                            class="form-input"
+                            placeholder="Enter item ID"
+                        />
+                    </div>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <button class="btn btn-primary" onclick="loadCategories()" id="loadCategoriesBtn">
+                        <i class="fas fa-download"></i>
+                        Load Categories
+                    </button>
+                </div>
+                <div class="status-message" id="loadStatusMessage"></div>
+            </div>
+
+            <!-- Categories Section -->
+            <div class="section" id="categoriesSection" style="display: none;">
+                <div class="section-header">
+                    <div class="section-title">
+                        <i class="fas fa-sitemap"></i>
+                        Select Categories
+                    </div>
+                    <button class="btn btn-secondary" onclick="clearAllSelections()">
+                        <i class="fas fa-times"></i>
+                        Clear All
+                    </button>
+                </div>
+                
+                <div id="categoryTreeContainer" class="category-tree">
+                    <!-- Categories will be rendered here -->
+                </div>
+
+                <div style="margin-top: 1.5rem;">
+                    <div class="section-title" style="margin-bottom: 1rem;">
+                        <i class="fas fa-check-circle"></i>
+                        Selected Categories (<span id="selectedCount">0</span>)
+                    </div>
+                    <div class="selected-categories empty" id="selectedCategoriesBox">
+                        <!-- Selected category chips will appear here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="actions" id="actionsSection" style="display: none;">
+                <button class="btn btn-secondary" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Products
+                </button>
+                <button class="btn btn-success" onclick="submitCategories()" id="submitBtn">
+                    <i class="fas fa-check"></i>
+                    Attach Categories
+                </button>
+            </div>
+
+            <div class="status-message" id="submitStatusMessage"></div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== CONFIGURATION ====================
+        const API_BASE_URL = 'http://localhost:9100/seller';
+        
+        // ==================== STATE MANAGEMENT ====================
+        let categoryData = [];
+        let selectedCategories = new Map();
+        let expandedNodes = new Set();
+        let isSubmitting = false;
+
+        // ==================== UTILITY FUNCTIONS ====================
+        function showLoading(show = true) {
+            const overlay = document.getElementById('loadingOverlay');
+            if (show) {
+                overlay.classList.add('show');
+            } else {
+                overlay.classList.remove('show');
+            }
+        }
+
+        function showStatus(elementId, message, type = 'info') {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.className = `status-message show ${type}`;
+            
+            // Auto-hide success messages after 5 seconds
+            if (type === 'success') {
+                setTimeout(() => {
+                    element.classList.remove('show');
+                }, 5000);
+            }
+        }
+
+        function hideStatus(elementId) {
+            const element = document.getElementById(elementId);
+            element.classList.remove('show');
+        }
+
+        function validateInputs(businessId, itemId) {
+            if (!businessId || businessId.trim() === '') {
+                showStatus('loadStatusMessage', 'Business ID is required', 'error');
+                return false;
+            }
+            
+            if (!itemId || itemId.trim() === '') {
+                showStatus('submitStatusMessage', 'Catalog Item ID is required', 'error');
+                return false;
+            }
+            
+            return true;
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // ==================== API FUNCTIONS ====================
+        async function loadCategories() {
+            const businessId = document.getElementById('businessIdInput').value.trim();
+            
+            if (!businessId) {
+                showStatus('loadStatusMessage', 'Please enter a Business ID', 'error');
+                return;
+            }
+
+            hideStatus('loadStatusMessage');
+            showLoading(true);
+            
+            const loadBtn = document.getElementById('loadCategoriesBtn');
+            loadBtn.disabled = true;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/business/${businessId}/categories`);
+                const json = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(json.message || `HTTP ${response.status}: Failed to load categories`);
+                }
+
+                if (!json.success || !json.data) {
+                    throw new Error('Invalid response format from server');
+                }
+
+                categoryData = json.data;
+                
+                if (categoryData.length === 0) {
+                    showStatus('loadStatusMessage', 'No categories found for this business', 'info');
+                    document.getElementById('categoriesSection').style.display = 'none';
+                    document.getElementById('actionsSection').style.display = 'none';
+                } else {
+                    renderCategoryTree();
+                    document.getElementById('categoriesSection').style.display = 'block';
+                    document.getElementById('actionsSection').style.display = 'flex';
+                    showStatus('loadStatusMessage', `Loaded ${categoryData.length} root categories successfully`, 'success');
+                }
+
+            } catch (error) {
+                console.error('Error loading categories:', error);
+                showStatus('loadStatusMessage', error.message, 'error');
+                document.getElementById('categoriesSection').style.display = 'none';
+                document.getElementById('actionsSection').style.display = 'none';
+            } finally {
+                showLoading(false);
+                loadBtn.disabled = false;
+            }
+        }
+
+        async function submitCategories() {
+            if (isSubmitting) return;
+
+            const businessId = document.getElementById('businessIdInput').value.trim();
+            const itemId = document.getElementById('itemIdInput').value.trim();
+
+            if (!validateInputs(businessId, itemId)) {
+                return;
+            }
+
+            if (selectedCategories.size === 0) {
+                showStatus('submitStatusMessage', 'Please select at least one category', 'error');
+                return;
+            }
+
+            hideStatus('submitStatusMessage');
+            isSubmitting = true;
+            showLoading(true);
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+
+            try {
+                const categoryIds = Array.from(selectedCategories.keys());
+                
+                const response = await fetch(
+                    `${API_BASE_URL}/business/items/${itemId}/categories`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            categoryIds: categoryIds
+                        })
+                    }
+                );
+
+                const json = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(json.message || `HTTP ${response.status}: Failed to attach categories`);
+                }
+
+                if (!json.success) {
+                    throw new Error(json.message || 'Failed to attach categories');
+                }
+
+                showStatus('submitStatusMessage', 
+                    `Successfully attached ${categoryIds.length} ${categoryIds.length === 1 ? 'category' : 'categories'} to the product`, 
+                    'success'
+                );
+                
+                // Optional: Clear selections after successful submit
+                // clearAllSelections();
+
+            } catch (error) {
+                console.error('Error submitting categories:', error);
+                showStatus('submitStatusMessage', error.message, 'error');
+            } finally {
+                showLoading(false);
+                submitBtn.disabled = false;
+                isSubmitting = false;
+            }
+        }
+
+        // ==================== CATEGORY TREE RENDERING ====================
+        function renderCategoryTree() {
+            const container = document.getElementById('categoryTreeContainer');
+            
+            if (categoryData.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-folder-open"></i>
+                        <p>No categories available</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = categoryData.map(category => renderCategoryNode(category)).join('');
+        }
+
+        function renderCategoryNode(category, level = 0) {
+            const hasChildren = category.children && category.children.length > 0;
+            const isExpanded = expandedNodes.has(category.id);
+            const isSelected = selectedCategories.has(category.id);
+
+            let html = `
+                <div class="category-node">
+                    <div class="category-item ${isSelected ? 'selected' : ''}" data-id="${category.id}">
+                        <input 
+                            type="checkbox" 
+                            class="category-checkbox"
+                            ${isSelected ? 'checked' : ''}
+                            onchange="toggleCategory('${category.id}', '${escapeHtml(category.name)}')"
+                        />
+                        ${hasChildren ? `
+                            <div class="category-expand ${isExpanded ? 'expanded' : ''}" onclick="toggleExpand('${category.id}')">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        ` : '<div style="width: 1.25rem;"></div>'}
+                        <span class="category-label">${escapeHtml(category.name)}</span>
+                        ${hasChildren ? `<span class="category-count">${category.children.length}</span>` : ''}
+                    </div>
+            `;
+
+            if (hasChildren) {
+                html += `
+                    <div class="category-children ${isExpanded ? '' : 'collapsed'}" id="children-${category.id}">
+                        ${category.children.map(child => renderCategoryNode(child, level + 1)).join('')}
+                    </div>
+                `;
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ==================== CATEGORY INTERACTION ====================
+        function toggleCategory(categoryId, categoryName) {
+            if (selectedCategories.has(categoryId)) {
+                selectedCategories.delete(categoryId);
+            } else {
+                selectedCategories.set(categoryId, categoryName);
+            }
+            
+            updateSelectedDisplay();
+            updateCategoryItemStyles();
+        }
+
+        function toggleExpand(categoryId) {
+            if (expandedNodes.has(categoryId)) {
+                expandedNodes.delete(categoryId);
+            } else {
+                expandedNodes.add(categoryId);
+            }
+            
+            const childrenContainer = document.getElementById(`children-${categoryId}`);
+            const expandIcon = event.currentTarget;
+            
+            if (childrenContainer) {
+                childrenContainer.classList.toggle('collapsed');
+                expandIcon.classList.toggle('expanded');
+            }
+        }
+
+        function updateCategoryItemStyles() {
+            document.querySelectorAll('.category-item').forEach(item => {
+                const categoryId = item.dataset.id;
+                if (selectedCategories.has(categoryId)) {
+                    item.classList.add('selected');
+                } else {
+                    item.classList.remove('selected');
+                }
+            });
+        }
+
+        function updateSelectedDisplay() {
+            const container = document.getElementById('selectedCategoriesBox');
+            const count = document.getElementById('selectedCount');
+            
+            count.textContent = selectedCategories.size;
+            
+            if (selectedCategories.size === 0) {
+                container.innerHTML = '';
+                container.classList.add('empty');
+                return;
+            }
+            
+            container.classList.remove('empty');
+            
+            const chips = Array.from(selectedCategories.entries()).map(([id, name]) => `
+                <div class="category-chip">
+                    <span>${escapeHtml(name)}</span>
+                    <div class="chip-remove" onclick="removeCategory('${id}')">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+            `).join('');
+            
+            container.innerHTML = chips;
+        }
+
+        function removeCategory(categoryId) {
+            selectedCategories.delete(categoryId);
+            
+            // Update checkbox
+            const checkbox = document.querySelector(`.category-item[data-id="${categoryId}"] input`);
+            if (checkbox) {
+                checkbox.checked = false;
+            }
+            
+            updateSelectedDisplay();
+            updateCategoryItemStyles();
+        }
+
+        function clearAllSelections() {
+            selectedCategories.clear();
+            
+            // Uncheck all checkboxes
+            document.querySelectorAll('.category-checkbox').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            
+            updateSelectedDisplay();
+            updateCategoryItemStyles();
+            hideStatus('submitStatusMessage');
+        }
+
+        // ==================== NAVIGATION ====================
+        function goBack() {
+            // Update this URL to match your actual inventory page
+            window.location.href = '/add-inventory-step3.html';
+        }
+
+        // ==================== KEYBOARD SUPPORT ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Enter key support for inputs
+            ['businessIdInput', 'itemIdInput'].forEach(id => {
+                const element = document.getElementById(id);
+                element.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        loadCategories();
+                    }
+                });
+            });
+
+            // Prevent form submission on enter in the whole page
+            document.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
